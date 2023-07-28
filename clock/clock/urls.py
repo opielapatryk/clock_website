@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from real_time_clock import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('real_time_clock.urls'))
+    # path('', include('real_time_clock.urls'))
+    path('', views.index, name='index')
 ]

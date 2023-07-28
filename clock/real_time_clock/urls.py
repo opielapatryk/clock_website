@@ -1,6 +1,6 @@
-from django.urls import path
-from real_time_clock import views
+# from django.urls import path
+# from real_time_clock import views
 
-urlpatterns = [
-    path('',views.hello_world, name='hello_world'),
-]
+# urlpatterns = [
+#     path('',views.hello_world, name='hello_world'),
+# ]
