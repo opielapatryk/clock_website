@@ -10,21 +10,23 @@
     <h1>
         Select time zone: <span id="time_zone_selector"></span>
         <form action="">
-            <select name="" id="">
+            <select name="area" id="area">
                 {% for row in rows %}
-                <option value="area">{{row.1}}</option>
+                <option value="{{row.5}}">{{row.1}}</option>
+                
                 {% endfor %}
             </select>
         </form>
     </h1>
-    <table>
-        <tbody>
-            
-        </tbody>
-    </table>
+    <h1>selected option: <span id="zone"></span></h1>
     
 </body>
 <script>
+    zone = document.getElementById("zone")
+    document.getElementById("area").addEventListener("change", (e)=>{
+        zone.innerHTML = e.target.value
+    })
+    
     function setTime(){
         let timestamp = Date.now();
         let date = new Date(timestamp);
