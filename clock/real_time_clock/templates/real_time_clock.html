@@ -8,7 +8,7 @@
         Current time: <span id="clock"></span>   
     </h1>
     <h1>
-        Select time zone: <span id="time_zone_selector"></span>
+        Select time zone: 
         <form action="">
             <select name="area" id="area">
                 {% for row in rows %}
@@ -18,17 +18,26 @@
             </select>
         </form>
     </h1>
+    <h1>
+        Set timer: <input type="time" name="set_timer" id="set_timer"><br>
+        Difference: <span id="diff_time"></span>
+    </h1>
     
 </body>
 <script>
+    let setled_time = ''
+    document.getElementById("set_timer").addEventListener("change", (e)=>{
+        setled_time = e.target.value
+        document.getElementById("diff_time").innerText = String(((parseInt(setled_time.slice(0,2))-parseInt(formattedTime.slice(0,2))) + 24)%24).padStart(2,'0')+":"+String(((parseInt(setled_time.slice(3,5))-parseInt(formattedTime.slice(3,5))) + 60)%60).padStart(2,'0')
+    })
+
     offset = 0
     char = ''
-    zone = document.getElementById("zone")
     document.getElementById("area").addEventListener("change", (e)=>{
         offset = parseInt(e.target.value[2])
         char = e.target.value[0]
     })
-    
+    let formattedTime = ''
     function setTime(){
         let date = new Date();
         let hours = String(date.getUTCHours()).padStart(2, '0');
@@ -38,12 +47,14 @@
             hours = String((date.getUTCHours() - offset +24)%24).padStart(2, '0');
         }
         let minutes = String(date.getUTCMinutes()).padStart(2, '0');
-        let formattedTime = hours + ':' + minutes;
+        formattedTime = hours + ':' + minutes;
         document.getElementById('clock').innerHTML = formattedTime;
     };
     setTime();
     document.addEventListener('DOMContentLoaded', setInterval(function() {
         setTime()
     },1000));
+
+    
 </script>
 </html>
