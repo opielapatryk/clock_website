@@ -9,30 +9,17 @@
     </h1>
     <h1>
         Select time zone: <span id="time_zone_selector"></span>
+        <form action="">
+            <select name="" id="">
+                {% for row in rows %}
+                <option value="area">{{row.1}}</option>
+                {% endfor %}
+            </select>
+        </form>
     </h1>
     <table>
-        <thead>
-            <tr>
-                <th>0</th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-            </tr>
-        </thead>
         <tbody>
-            {% for row in rows %}
-                <tr>
-                    {% for cell in row %}
-                        <td>{{ cell }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+            
         </tbody>
     </table>
     
