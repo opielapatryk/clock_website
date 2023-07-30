@@ -22,16 +22,23 @@
     
 </body>
 <script>
+    offset = 0
+    char = ''
     zone = document.getElementById("zone")
     document.getElementById("area").addEventListener("change", (e)=>{
-        zone.innerHTML = e.target.value
+        offset = parseInt(e.target.value[2])
+        char = e.target.value[0]
     })
     
     function setTime(){
-        let timestamp = Date.now();
-        let date = new Date(timestamp);
-        let hours = String(date.getHours()).padStart(2, '0');
-        let minutes = String(date.getMinutes()).padStart(2, '0');
+        let date = new Date();
+        let hours = String(date.getUTCHours()).padStart(2, '0');
+        if(char=="+"){
+            hours = String((date.getUTCHours() + offset +24)%24).padStart(2, '0');
+        }else{
+            hours = String((date.getUTCHours() - offset +24)%24).padStart(2, '0');
+        }
+        let minutes = String(date.getUTCMinutes()).padStart(2, '0');
         let formattedTime = hours + ':' + minutes;
         document.getElementById('clock').innerHTML = formattedTime;
     };
