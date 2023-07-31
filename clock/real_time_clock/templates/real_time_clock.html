@@ -20,16 +20,69 @@
     </h1>
     <h1>
         Set timer: <input type="time" name="set_timer" id="set_timer"><br>
-        Difference: <span id="diff_time"></span>
+        Countdown: <span id="diff_time"></span>
     </h1>
     
 </body>
 <script>
     let setled_time = ''
+
+    let current_hour = ''
+    let current_minute = ''
+    let current_minutes = ''
+
+    let setlet_hour = ''
+    let setlet_minute = ''
+    let setlet_minutes = ''
+
+    let countdown_minutes = null
+    let countdown_hour = ''
+    let countdown_minute = ''
+
+    let dobe = 1440 
+
     document.getElementById("set_timer").addEventListener("change", (e)=>{
         setled_time = e.target.value
-        document.getElementById("diff_time").innerText = String(((parseInt(setled_time.slice(0,2))-parseInt(formattedTime.slice(0,2))) + 24)%24).padStart(2,'0')+":"+String(((parseInt(setled_time.slice(3,5))-parseInt(formattedTime.slice(3,5))) + 60)%60).padStart(2,'0')
+
+        countdown_hour = String((((parseInt(setled_time.slice(0,2))-parseInt(formattedTime.slice(0,2))+24)%24))).padStart(2,'0')
+
+        countdown_minute = String((((parseInt(setled_time.slice(3,5))-parseInt(formattedTime.slice(3,5))+60)%60))).padStart(2,'0')
+
+
+        current_hour = parseInt(formattedTime.slice(0,2))
+        current_minute = parseInt(formattedTime.slice(3,5))
+        current_minutes = current_hour*60+current_minute
+
+        setlet_hour = parseInt(setled_time.slice(0,2))
+        setlet_minute = parseInt(setled_time.slice(3,5))
+        setlet_minutes = setlet_hour*60+setlet_minute
+
+        if(setlet_minutes>current_minutes){
+            countdown_minutes = setlet_minutes-current_minutes
+        }else{
+            countdown_minutes = current_minutes-setlet_minutes
+            countdown_minutes = dobe - countdown_minutes
+        }
+        countdown_hour = Math.floor(countdown_minutes/60)
+        countdown_minute = countdown_minutes % 60
+
+        document.getElementById("diff_time").innerText = String(countdown_hour).padStart(2,'0')+":"+String(countdown_minute).padStart(2,'0')
+
+        //1. przelicz godziny na minuty h*60+m 
+        //count = count + 1
+        //current_time.minute = current_time.minute + 1 if current_time.minute == 60 current_time.hour = current_time.hour + 1 if current_time.hour == 24 current_time.hour = 00
     })
+    
+    while(countdown_hour > 0 && countdown_minute > 0){
+        console.log("im in while loop, wait 60 sec")
+        const myTimeout = setTimeout(minus, 60000);
+
+        function minus() {
+            countdown_minute = countdown_minute - 1
+            console.log(countdown_minute)
+        }
+    }
+    
 
     offset = 0
     char = ''
