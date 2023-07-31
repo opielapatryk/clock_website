@@ -35,7 +35,7 @@
     let setlet_minute = ''
     let setlet_minutes = ''
 
-    let countdown_minutes = null
+    let countdown_minutes
     let countdown_hour = ''
     let countdown_minute = ''
 
@@ -63,25 +63,24 @@
             countdown_minutes = current_minutes-setlet_minutes
             countdown_minutes = dobe - countdown_minutes
         }
+
         countdown_hour = Math.floor(countdown_minutes/60)
         countdown_minute = countdown_minutes % 60
 
         document.getElementById("diff_time").innerText = String(countdown_hour).padStart(2,'0')+":"+String(countdown_minute).padStart(2,'0')
 
-        //1. przelicz godziny na minuty h*60+m 
-        //count = count + 1
-        //current_time.minute = current_time.minute + 1 if current_time.minute == 60 current_time.hour = current_time.hour + 1 if current_time.hour == 24 current_time.hour = 00
-    })
-    
-    while(countdown_hour > 0 && countdown_minute > 0){
-        console.log("im in while loop, wait 60 sec")
-        const myTimeout = setTimeout(minus, 60000);
+        setInterval(() => {
+            countdown_minutes = countdown_minutes - 1
 
-        function minus() {
-            countdown_minute = countdown_minute - 1
-            console.log(countdown_minute)
-        }
-    }
+            console.log(countdown_minutes)
+
+            countdown_hour = Math.floor(countdown_minutes/60)
+            countdown_minute = countdown_minutes % 60
+
+            document.getElementById("diff_time").innerText = String(countdown_hour).padStart(2,'0')+":"+String(countdown_minute).padStart(2,'0')
+            
+        }, 60000);
+    })
     
 
     offset = 0
